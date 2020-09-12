@@ -1,0 +1,260 @@
+{% extends "homepage.html" %}
+{% load static %}
+{% block meta %}{{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static "styles/product_responsive.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "styles/product.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/contact.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/contact_responsive.css' %}">
+{#    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">#}
+{% endblock %}
+
+{% block body %}
+    	<!-- Home -->
+
+	<div class="home">
+		<div class="home_container">
+			<div class="home_background" style="background-image:url({% static "images/categories.jpg" %})"></div>
+			<div class="home_content_container">
+				<div class="container">
+					<div class="row">
+						<div class="col">
+							<div class="home_content">
+								<div class="home_title">{{ object.category.name }}<span>.</span></div>
+								<div class="home_text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie eros. Sed viverra velit venenatis fermentum luctus.</p></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Product Details -->
+
+	<div class="product_details">
+		<div class="container">
+			<div class="row details_row">
+
+				<!-- Product Image -->
+				<div class="col-lg-6">
+					<div class="details_image">
+						<div class="details_image_large"><img src="/media/{{ object.main_image }}" alt="">{% if discount.get_discount_price > 0 %}<div class="product_extra product_sale"><a href="{% url 'offers' %}">Sale</a></div>{% endif %}</div>
+						<div class="details_image_thumbnails d-flex flex-row align-items-start">
+							<div class="details_image_thumbnail active mr-3" data-image="/media/{{ object.main_image }}"><img src="/media/{{ object.main_image }}" alt=""></div>
+                            {% for image in object.images.all %}
+
+                                <div class="details_image_thumbnail {% if not forloop.last %}mr-3{% endif %}" data-image="/media/{{ image.image }}"><img src="/media/{{ image.image }}" alt=""></div>
+                            {% endfor %}
+						</div>
+					</div>
+				</div>
+
+				<!-- Product Content -->
+				<div class="col-lg-6">
+					<div class="details_content">
+						<div class="details_name">{{ object.name }}</div>
+                        {% if discount.get_discount_price >= 0 %}
+                            <div class="details_discount">{{ object.price }} PLN.</div>
+                            <div class="details_price">{{ discount.get_discount_price }} PLN.</div>
+                            {% else %}
+                                <div class="details_price">{{ object.price }} PLN.</div>
+                        {% endif %}
+						<!-- In Stock -->
+						<div class="in_stock_container">
+							<div class="availability">Dostępność:</div>
+							{% if quantity > 0 %}<span>W magazynie</span>{% else %}<span class="unavailable">Brak w magazynie</span>{% endif %}<br/>
+                            <div class="availability">Ilość:</div>
+							<span {% if quantity < 1 %}class="unavailable"{% endif %}>
+                                {{ quantity }}
+                            </span>
+						</div>
+						<div class="details_text">
+							<p>{{ object.description }}</p>
+						</div>
+
+						<!-- Product Quantity -->
+						<div class="product_quantity_container">
+                            <form action="/add/{{ object.id }}/" method="post">
+                                <div class="product_quantity clearfix">
+                                    <span>Qty</span>
+                                    {{ form_cart.quantity }}
+                                    <div class="quantity_buttons">
+                                        <div id="quantity_inc_button" class="quantity_inc quantity_control"><i class="fa fa-chevron-up" aria-hidden="true"></i></div>
+                                        <div id="quantity_dec_button" class="quantity_dec quantity_control"><i class="fa fa-chevron-down" aria-hidden="true"></i></div>
+                                    </div>
+                                    {% csrf_token %}
+                                </div>
+                                {{ form_cart.update }}
+                                <button type="submit" class="cart_button newsletter_button trans_200{% if quantity < 1 %} disabled_qt" disabled{% else %}"{% endif %}>
+                                    <span>Dodaj do koszyka</span>
+                                </button>
+                            </form>
+						</div>
+
+						<!-- Share -->
+						<div class="details_share">
+							<span>Udostępnij:</span>
+							<ul>
+								<li><a href="https://pinterest.com" target="_blank"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+								<li><a href="https://instagram.com" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+								<li><a href="https://facebook.com" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+								<li><a href="https://twitter.com" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+            <div class="row description_row">
+                <div class="col">
+                    <div class="description_title_container">
+                        <div class="description_title">Opis</div>
+                    </div>
+                    <div class="description_text">
+                        <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Phasellus id nisi quis justo tempus mollis sed et dui. In hac habitasse platea dictumst. Suspendisse ultrices mauris diam. Nullam sed aliquet elit. Mauris consequat nisi ut mauris efficitur lacinia.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row description_row">
+                <div class="col">
+                    <div class="description_title_container">
+                        <div class="description_title">Opinie</div>
+                    </div>
+                    <div class="reviews_list">
+                        {% if object.product_review.first %}
+                            {% for review in object.product_review.all %}
+                                <div class="review_item">
+                                    <div class="row">
+                                        <div class="col-lg-4 review_title">
+                                            <span>{{ review.title }}</span>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="star-ratings-sprite">
+                                                <span style="width:{{ review.stars }}0%" class="star-ratings-sprite-rating"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6 review_text">{{ review.text }}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-1 review_user">{{ review.user }}</div>
+                                    </div>
+                                    {{ review.date }}
+                                </div>
+                            {% endfor %}
+                            {% else %}
+                                Brak Opinii. Dodaj jakąś!
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row description_row">
+                <div class="col">
+                    <div class="description_title_container">
+                        <div class="description_title">Dodaj Opinię</div>
+                    </div>
+                    {% if request.user.is_authenticated %}
+                        <form method="post" id="review_form" class="review_form">
+                            {% csrf_token %}
+                            {{ form.user }}
+                            {{ form.product }}
+                            <label for="title">Tytuł</label>
+                            {{ form.title }}
+                            <label for="text">Treść</label>
+                            {{ form.text }}
+                            <fieldset class="rating" id="rating">
+                            {% for choice in form.stars.field.choices %}
+                                <input type="radio" name="stars" value="{{ choice.0 }}" id="star{{ choice.0 }}{{ choice.1 }}">
+                                <label class="{{ choice.1 }}" for="star{{ choice.0 }}{{ choice.1 }}"></label>
+                            {% endfor %}
+                            </fieldset>
+                            <div style="clear: both;"></div>
+                            <button class="button contact_button"><span>Wyślij</span></button>
+                        </form>
+                        {% else %}
+                        <div class="description_text">
+                            Musisz być zalogowany by móc dodać opinię.
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+	</div>
+
+	<!-- Products -->
+
+	<div class="products">
+		<div class="container">
+        {% if related.count > 1 %}
+			<div class="row">
+				<div class="col text-center">
+					<div class="products_title">Podobne produkty</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+
+					<div class="product_grid">
+
+                        {% for related_item in related|slice:"5" %}
+                            {% if related_item.id != object.id %}
+                                <!-- Product -->
+                                <div class="product">
+                                    <div class="product_image"><a href="/product/{{ related_item.id }}"><img src="/media/{{ related_item.main_image }}" alt=""></a></div>
+                                    {% if related_item.product_discount.first.get_discount_price %}
+                                        <div class="product_extra product_sale"><a href="">Sale!</a></div>
+                                    {% endif %}
+                                    <div class="product_content">
+                                        <div class="product_title"><a href="product.html">{{ related_item.name }}</a></div>
+                                        {% if related_item.product_discount.get_discount_price %}
+                                            <div>
+                                                <span class="product_price discount_price">{{ related_item.price }} PLN. </span>
+                                                <span class="product_price normal_price">{{ related_item.product_discount.get_discount_price }} PLN.</span>
+                                            </div>
+                                            {% else %}
+                                            <span class="product_price">{{ related_item.price }} PLN. </span>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+					</div>
+				</div>
+			</div>
+            {% else %}
+            <div class="row">
+				<div class="col text-center">
+					<div class="products_title">Polecane produkty</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+
+					<div class="product_grid">
+
+                        {% for product in product %}
+                            {% if product.id != object.id %}
+                                <!-- Product -->
+                                <div class="product">
+                                    <div class="product_image"><a href="/product/{{ product.id }}"><img src="/media/{{ product.main_image }}" alt=""></a></div>
+{#                                    <div class="product_extra product_new"><a href="categories.html">New</a></div>#}
+                                    <div class="product_content">
+                                        <div class="product_title"><a href="product.html">{{ product.name }}</a></div>
+                                        <div class="product_price">{{ product.price }}</div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+					</div>
+				</div>
+			</div>
+        {% endif %}
+		</div>
+	</div>
+{% endblock %}
+{% block extra-script %}
+    {{ block.super }}
+    <script src="{% static "js/product.js" %}"></script>
+{% endblock %}

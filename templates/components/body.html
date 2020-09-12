@@ -1,0 +1,248 @@
+{% load static %}
+{% load pomelo_extras %}
+{% block body %}
+    <div class="home_main">
+		<div class="home_slider_container">
+
+			<!-- Home Slider -->
+			<div class="owl-carousel owl-theme home_slider">
+
+				<!-- Slider Item -->
+				<div class="owl-item home_slider_item">
+					<div class="home_slider_background" style="background-image:url({% static "images/home_slider_1.jpg" %})"></div>
+					<div class="home_slider_content_container">
+						<div class="container">
+							<div class="row">
+								<div class="col">
+									<div class="home_slider_content"  data-animation-in="fadeIn" data-animation-out="animate-out fadeOut">
+										<div class="home_slider_title">Pomelo.Net Najlepszy sklep pod słońcem.</div>
+										<div class="home_slider_subtitle">Jeżeli planujesz zakupy, to tylko u nas! Gwarantujemy najwyższą jakość świadczonych usług.</div>
+										<div class="button button_light home_button"><a href="{% url 'category' %}">Kup teraz</a></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Slider Item -->
+				<div class="owl-item home_slider_item">
+					<div class="home_slider_background" style="background-image:url({% static "images/home_slider_2.jpg" %})"></div>
+					<div class="home_slider_content_container">
+						<div class="container">
+							<div class="row">
+								<div class="col">
+									<div class="home_slider_content"  data-animation-in="fadeIn" data-animation-out="animate-out fadeOut">
+										<div class="home_slider_title">Najlepsza jakość dzwięku.</div>
+										<div class="home_slider_subtitle">Słuchawki z górnej półki porwą cię do świata melomanii</div>
+										<div class="button button_light home_button"><a href="{% url 'category_products' 3 'Inne' %}">Kup Teraz</a></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Slider Item -->
+				<div class="owl-item home_slider_item">
+					<div class="home_slider_background" style="background-image:url({% static "images/home_slider_3.jpg" %})"></div>
+					<div class="home_slider_content_container">
+						<div class="container">
+							<div class="row">
+								<div class="col">
+									<div class="home_slider_content"  data-animation-in="fadeIn" data-animation-out="animate-out fadeOut">
+										<div class="home_slider_title">Doświadcz nowych przeżyć.</div>
+										<div class="home_slider_subtitle">Kupując laptopy w przedsprzedaży zyskujesz rabat 20% na kolejne zakupy w naszym sklepie</div>
+										<div class="button button_light home_button"><a href="{% url 'category_products' 5 'Laptopy' %}">Kup teraz</a></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<!-- Home Slider Dots -->
+
+			<div class="home_slider_dots_container">
+				<div class="container">
+					<div class="row">
+						<div class="col">
+							<div class="home_slider_dots">
+								<ul id="home_slider_custom_dots" class="home_slider_custom_dots">
+									<li class="home_slider_custom_dot active">01.</li>
+									<li class="home_slider_custom_dot">02.</li>
+									<li class="home_slider_custom_dot">03.</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<!-- Ads -->
+
+	<div class="avds">
+		<div class="avds_container d-flex flex-lg-row flex-column align-items-start justify-content-between">
+			<div class="avds_small">
+				<div class="avds_background" style="background-image:url({% static "images/avds_small.jpg" %})"></div>
+				<div class="avds_small_inner">
+					<div class="avds_discount_container">
+						<img src="{% static 'images/discount.png' %}" alt="">
+						<div>
+							<div class="avds_discount">
+								<div>20<span>%</span></div>
+								<div>Przecena</div>
+							</div>
+						</div>
+					</div>
+					<div class="avds_small_content">
+						<div class="avds_title">Smartfony</div>
+						<div class="avds_link"><a href="{% url "category_products" 1 "Aparaty" %}">Sprawdź</a></div>
+					</div>
+				</div>
+			</div>
+			<div class="avds_large">
+				<div class="avds_background" style="background-image:url({% static "images/avds_large.jpg" %})"></div>
+				<div class="avds_large_container">
+					<div class="avds_large_content">
+						<div class="avds_title">Profesjonalne Aparaty</div>
+						<div class="avds_text">Olympus OM-D E-M10 III to aparat fotograficzny przeznaczony dla szerokiego grona użytkowników. Uwagę zwraca jego bardzo solidna obudowa, która gwarantuje ochronę urządzenia przed czynnikami zewnętrznymi, jednak coś za coś...</div>
+						<div class="avds_link avds_link_large"><a href="{% url "category_products" 6 "Kamery" %}">Sprawdź</a></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Products -->
+	<div class="products_main">
+        <br/>
+		<div class="container">
+            <div class="row">
+				<div class="col text-center">
+					<div class="newsletter_title">Polecane produkty</div>
+				</div>
+			</div>
+            <br/>
+			<div class="row">
+				<div class="col">
+					<div class="product_grid">
+                        {% for product in product|slice:":12" %}
+                            <!-- Product -->
+                            <div class="product">
+                                <div class="product_image"><a href="product/{{ product.id }}"><img src="media/{{ product.main_image }}" alt=""></a></div>
+                                {% if product.product_discount.first.get_discount_price %}<div class="product_extra product_sale"><a href="">Sale!</a></div>{% endif %}
+                                <div class="product_content">
+                                    <div class="product_title"><a href="product/{{ product.id }}">{{ product.name }}</a></div>
+                                    <div class="product_price" id="product_price">
+                                        {% if product.product_discount.get_discount_price %}
+                                            <div>
+                                                <span class="discount_price">{{ product.price }} PLN. </span>
+                                                <span class="normal_price">{{ product.product_discount.get_discount_price }} PLN.</span>
+                                            </div>
+                                            {% else %}
+                                            {{ product.price }} PLN.
+                                        {% endif %}
+                                    </div>
+                                </div>
+						    </div>
+                        {% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Ad -->
+
+	<div class="avds_xl">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<div class="avds_xl_container clearfix">
+						<div class="avds_xl_background" style="background-image:url({% static "images/avds_xl.jpg" %})"></div>
+						<div class="avds_xl_content">
+							<div class="avds_title">Topowe urządzenia</div>
+							<div class="avds_text">Jesteś fanem elektroniki z najwyższej półki?</div>
+							<div class="avds_link avds_xl_link"><a href="{% url 'category' %}">Sprawdź!</a></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Icon Boxes -->
+
+	<div class="icon_boxes">
+		<div class="container">
+			<div class="row icon_box_row">
+
+				<!-- Icon Box -->
+				<div class="col-lg-4 icon_box_col">
+					<div class="icon_box">
+						<div class="icon_box_image"><img src="{% static "images/icon_1.svg" %}" alt=""></div>
+						<div class="icon_box_title">Darmowa dostawa na całym świecie</div>
+						<div class="icon_box_text">
+							<p>Nie ważne skąd zamówisz, my i tak tam dotrzemy!</p>
+						</div>
+					</div>
+				</div>
+
+				<!-- Icon Box -->
+				<div class="col-lg-4 icon_box_col">
+					<div class="icon_box">
+						<div class="icon_box_image"><img src="{% static "images/icon_2.svg" %}" alt=""></div>
+						<div class="icon_box_title">Darmowe zwroty</div>
+						<div class="icon_box_text">
+							<p>Nie jesteś zadowolony z zakupu? Zwróć go nie płacąc nic za przesyłkę.</p>
+						</div>
+					</div>
+				</div>
+
+				<!-- Icon Box -->
+				<div class="col-lg-4 icon_box_col">
+					<div class="icon_box">
+						<div class="icon_box_image"><img src="{% static "images/icon_3.svg" %}" alt=""></div>
+						<div class="icon_box_title">24h szybkie wsparcie</div>
+						<div class="icon_box_text">
+							<p>Jesteśmy do Twojej dyspozycji o każdej porze dnia i nocy.</p>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<!-- Newsletter -->
+
+	<div class="newsletter">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<div class="newsletter_border"></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2">
+					<div class="newsletter_content text-center">
+						<div class="newsletter_title">Zapisz się do naszego newslettera</div>
+						<div class="newsletter_text"><p>Chcesz być na bieżąco z nowościami oraz ofertami specjalnie dla subskrybentów? Zapisz się!</p></div>
+						<div class="newsletter_form_container">
+							<form action="#" id="newsletter_form" class="newsletter_form">
+								<input type="email" class="newsletter_input" required="required" placeholder="Adres e-mail">
+								<button class="newsletter_button trans_200"><span>Subskrybuj</span></button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

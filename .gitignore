@@ -1,0 +1,17 @@
+venv
+.idea
+pomelo/__pycache__
+pomelo_net/__pycache__
+pomelo/migrations/__pycache__
+*.pyc
+*.pyc
+pomelo/__init__.pyc
+pomelo/apps.pyc
+pomelo/migrations/__init__.pyc
+pomelo/admin.pyc
+pomelo/views.pyc
+pomelo/models.pyc
+pomelo_net/__init__.pyc
+pomelo_net/urls.pyc
+pomelo_net/wsgi.pyc
+*.pyc

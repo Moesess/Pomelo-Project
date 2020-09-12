@@ -1,0 +1,121 @@
+{% extends "homepage.html" %}
+{% load static %}
+{% block meta %}{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% static 'styles/contact.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'styles/contact_responsive.css' %}">
+{% endblock %}
+
+{% block body %}
+
+	<div class="home">
+		<div class="home_container">
+			<div class="home_background" style="background-image:url({% static 'images/contact.jpg' %})"></div>
+			<div class="home_content_container">
+				<div class="container">
+					<div class="row">
+						<div class="col">
+							<div class="home_content">
+								<div class="breadcrumbs">
+									<ul>
+										<li><a href="{% url 'home' %}">Strona główna</a></li>
+										<li>Kontakt</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Contact -->
+	
+	<div class="contact">
+		<div class="container">
+			<div class="row">
+
+				<!-- Get in touch -->
+				<div class="col-lg-8 contact_col">
+					<div class="get_in_touch">
+						<div class="section_title">Bądź w kontakcie</div>
+						<div class="section_subtitle">Skontaktuj się z nami, nie wstydź się!</div>
+						<div class="contact_form_container">
+							<form method="post" id="contact_form" class="contact_form">
+                                {% csrf_token %}
+								<div class="row">
+									<div class="col-xl-6">
+										<!-- Name -->
+										<label for="contact_name">Imię*</label>
+                                        {{ form.name }}
+									</div>
+									<div class="col-xl-6 last_name_col">
+										<!-- Last Name -->
+										<label for="contact_last_name">E-mail*</label>
+                                        {{ form.email }}
+									</div>
+								</div>
+								<div>
+									<!-- Subject -->
+									<label for="contact_company">Temat</label>
+                                    {{ form.subject }}
+								</div>
+								<div>
+									<label for="contact_textarea">Treść*</label>
+                                    {{ form.message }}
+								</div>
+								<button class="button contact_button"><span>Wyślij</span></button>
+							</form>
+						</div>
+					</div>
+				</div>
+
+				<!-- Contact Info -->
+				<div class="col-lg-3 offset-xl-1 contact_col">
+					<div class="contact_info">
+						<div class="contact_info_section">
+							<div class="contact_info_title">Marketing</div>
+							<ul>
+								<li>Telefon: <span>+53 345 7953 3245</span></li>
+								<li>Email: <span>office@pomelo.nazwa.pl</span></li>
+							</ul>
+						</div>
+						<div class="contact_info_section">
+							<div class="contact_info_title">Dostawa i zwroty</div>
+							<ul>
+								<li>Telefon: <span>+53 345 7953 3245</span></li>
+								<li>Email: <span>office@pomelo.nazwa.pl</span></li>
+							</ul>
+						</div>
+						<div class="contact_info_section">
+							<div class="contact_info_title">Informacja</div>
+							<ul>
+								<li>Telefon: <span>+53 345 7953 3245</span></li>
+								<li>Email: <span>office@pomelo.nazwa.pl</span></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row map_row">
+				<div class="col">
+
+					<!-- Google Map -->
+					<div class="map">
+						<div id="google_map" class="google_map">
+							<div class="map_container">
+                                <iframe width="100%" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox=16.941647529602054%2C52.423033290110205%2C16.950659751892093%2C52.42767184143373&amp;layer=mapnik&amp;marker=52.4253526267819%2C16.94615364074707" style="border: 1px solid black"></iframe><br/><small><a href="https://www.openstreetmap.org/?mlat=52.42535&amp;mlon=16.94615#map=17/52.42535/16.94615">Wyświetl większą mapę</a></small>
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+{% block extra-script %}
+    {{ block.super }}
+    <script src="{% static "js/product.js" %}"></script>
+{% endblock %}

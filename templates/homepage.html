@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pl">
+    <head>
+        {% block meta %}{% include "components/meta.html" %}{% endblock %}
+    </head>
+
+    <body>
+        {% if request.get_full_path == "/" %}{% block loader %}{% include "components/loader.html" %}{% endblock %}{% endif %}
+        <div class="super_container">
+
+            {% block navbar %}{% include "components/navbar.html" %}{% endblock %}
+            <div class="modal fade" tabindex="-1" role="dialog" id="modal">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content"></div>
+              </div>
+            </div>
+
+            {% if messages %}
+                <div class="messages" role="alert">
+                    {% for message in messages %}
+                        <div class="alert{% if message.tags %} alert-{{ message.tags }}{% endif %} fade show alert-dismissible text-center" role="alert">
+                            <span>{{ message }}</span>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {% block menu %}{% include "components/menu.html" %}{% endblock %}
+            {% block body %}{% include "components/body.html" %}{% endblock %}
+            {% block footer %}{% include "components/footer.html" %}{% endblock %}
+        </div>
+    </body>
+    {% block extra-script %}{% include "components/extra-script.html" %}{% endblock %}
+</html>

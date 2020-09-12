@@ -1,0 +1,64 @@
+{% extends "homepage.html" %}
+{% load static %}
+{% block meta %}{{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static "styles/product_responsive.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "styles/product.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/contact.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/contact_responsive.css' %}">
+{% endblock %}
+{% block body %}
+    <div class="home">
+		<div class="home_container">
+			<div class="home_background" style="background-image:url({% static "images/categories.jpg" %})"></div>
+			<div class="home_content_container">
+				<div class="container">
+					<div class="row">
+						<div class="col">
+							<div class="home_content">
+								<div class="home_title">{{ view_name }}<span>.</span></div>
+								<div class="home_text"><p>Ustawienia</p></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    <div class="profile">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 contact_col">
+                    <div class="edit_profile">
+                        <div class="section_title">Edytuj podstawowe dane</div>
+                        <div class="profile_form_container">
+                            <form method="post" id="contact_form" class="contact_form">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-xl-6 last_name_col">
+                                        <!-- Last Name -->
+                                        <label for="contact_last_name">E-mail</label>
+                                        {{ form.email }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <label for="contact_company">Imię</label>
+                                        {{ form.first_name }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <label for="contact_textarea">Nazwisko</label>
+                                        {{ form.last_name }}
+                                    </div>
+                                </div>
+                                <button class="button contact_button"><span>Zapisz</span></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

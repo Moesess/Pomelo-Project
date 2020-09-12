@@ -1,0 +1,48 @@
+{% extends "homepage.html" %}
+{% block body %}
+    <div class="admin-container">
+        <ul class="nav justify-content-center">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Użytkownicy</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Lista</a>
+                    <a class="dropdown-item" href="#">Dodawanie</a>
+                    <a class="dropdown-item" href="#">Usuwanie</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Typy Kont Lista</a>
+                    <a class="dropdown-item" href="#">Typy Kont dodawanie</a>
+                    <a class="dropdown-item" href="#">Typy Kont usuwanie</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Magazyny</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Lista</a>
+                    <a class="dropdown-item" href="#">Dodawanie</a>
+                    <a class="dropdown-item" href="#">Usuwanie</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Produkty</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Lista</a>
+                    <a class="dropdown-item" href="#">Dodawanie</a>
+                    <a class="dropdown-item" href="#">Usuwanie</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Kategoria Produktów Lista</a>
+                    <a class="dropdown-item" href="#">Kategoria Produktów Dodawanie</a>
+                    <a class="dropdown-item" href="#">Kategoria Produktów Usuwanie</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Zamowienia</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Lista</a>
+                    <a class="dropdown-item" href="#">Dodawanie</a>
+                    <a class="dropdown-item" href="#">Usuwanie</a>
+                </div>
+            </li>
+        </ul>
+        {% block admin-details %}{% endblock %}
+    </div>
+{% endblock %}

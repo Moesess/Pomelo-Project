@@ -1,0 +1,96 @@
+{% extends "homepage.html" %}
+{% load static %}
+{% block meta %}{{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static "styles/style.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "styles/categories.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "styles/categories_responsive.css" %}">
+{% endblock %}
+
+{% block body %}
+    	<!-- Home -->
+
+	<div class="home">
+		<div class="home_container">
+			<div class="home_background" style="background-image:url({% static "images/categories.jpg" %})"></div>
+			<div class="home_content_container">
+				<div class="container">
+					<div class="row">
+						<div class="col">
+							<div class="home_content">
+								<div class="home_title">{{ view_name }}<span>.</span></div>
+								<div class="home_text"><p>Kupuj lepiej i taniej. Codziennie nowe promocje i przeceny!</p></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Products -->
+    <div class="products">
+		<div class="container">
+			<div class="row">
+				<div class="col" id="ordering">
+					<!-- Product Sorting -->
+					<div class="sorting_bar d-flex flex-md-row flex-column align-items-md-center justify-content-md-start">
+						<div class="results">Pokazano <span>{{ offers.count }}</span>
+                            {% if offers.count > 4 or offers.count == 0%}wyników{% elif offers.count == 1 %} wynik {% else %}wyniki{% endif %}</div>
+						<div class="sorting_container ml-md-auto">
+							<div class="sorting">
+								<ul class="item_sorting">
+									<li>
+										<span class="sorting_text">Sortuj według</span>
+										<i class="fa fa-chevron-down" aria-hidden="true"></i>
+										<ul>
+											<li class="product_sorting_btn" data-isotope-option='{ "sortBy": "original-order" }'><a href="{{ request.path }}?sort=name#ordering"><span>Alfabetycznie A-Z</span></a></li>
+											<li class="product_sorting_btn" data-isotope-option='{ "sortBy": "price" }'><a href="{{ request.path }}?sort=-name#ordering"><span>Alfabetycznie Z-A</span></a></li>
+											<li class="product_sorting_btn" data-isotope-option='{ "sortBy": "price" }'><a href="{{ request.path }}?sort=price#ordering"><span>Cena od najniższej</span></a></li>
+											<li class="product_sorting_btn" data-isotope-option='{ "sortBy": "price" }'><a href="{{ request.path }}?sort=-price#ordering"><span>Cena od najwyższej</span></a></li>
+										</ul>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+                {% if offers.count < 1 %}<div class="empty-query"><h3>Niestety, brak wyników.</h3></div>
+                    {% else %}
+					<div class="product_grid">
+                        {% for product in offers %}
+                                <!-- Product -->
+                                <div class="product">
+                                    {% if product.product_discount.get_discount_price %}
+                                        <div class="product_extra product_sale"><a href="">Sale!</a></div>
+                                    {% endif %}
+
+                                    <div class="product_image">
+                                        <a href="{% url "product_page" product.id %}"><img src="/media/{{ product.main_image }}" alt=""></a>
+                                    </div>
+
+                                    <div class="product_content">
+                                        <div class="product_title"><a href="{% url "product_page" product.id %}">{{ product.name }}</a></div>
+                                        {% if product.product_discount.get_discount_price %}
+                                            <div>
+                                                <span class="discount_price product_price">{{ product.price }} PLN. </span>
+                                                <span class="product_price normal_price">{{ product.product_discount.get_discount_price }} PLN.</span>
+                                            </div>
+                                            {% else %}<span class="product_price normal_price">{{ product.price }} PLN. </span>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                        {% endfor %}
+                    {% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+{% block extra-script %}
+    {{ block.super }}
+    <script src="{% static "js/product.js" %}"></script>
+{% endblock %}

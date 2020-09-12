@@ -1,0 +1,28 @@
+{% extends "homepage.html" %}
+{% load widget_tweaks %}
+{% load static %}
+{% block meta %}{{ block.super }}
+{% endblock %}
+{% block body %}
+    <form class='' action="" method="post">
+        {% csrf_token %}
+        <div class="modal-body text-center">
+            <img class="mb-4" src="{% static "images/logo.svg" %}" alt="" width="72" height="72">
+            <div class="form-signin {% if form.non_field_errors %}invalid{% endif %} mb-2">
+                {% for error in form.non_field_errors %}
+                    {{ error }}
+                {% endfor %}
+                {% for field in form %}
+                    {% render_field field class="form-control" placeholder=field.label %}
+                    <div class="{% if field.errors %} invalid{% endif %}">
+                        {% for error in field.errors %}
+                            <p class="help-block">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+                <p class="text-muted"><a href="{% url 'register' %}">Nie masz konta? Zarejestruj się tutaj!</a></p>
+                <button class="newsletter_button trans_200" id="submit" type="submit" style="margin-top: 25px;"><span>Zaloguj</span></button>
+            </div>
+        </div>
+    </form>
+{% endblock %}
