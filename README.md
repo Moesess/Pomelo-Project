@@ -1,2 +1,2 @@
 # pomelo_net
-No projekcik fajny sklepu
+Web shop design project
